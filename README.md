@@ -62,9 +62,13 @@ henique/
 │   └── images/                # All site images, grouped by purpose (see below)
 └── src/
     ├── app/
-    │   ├── layout.tsx         # Root layout and fonts
+    │   ├── layout.tsx         # Root layout, fonts, page metadata
     │   ├── page.tsx           # Home page composition
-    │   └── globals.css        # Tailwind import + design tokens (@theme)
+    │   ├── globals.css        # Tailwind import + design tokens (@theme)
+    │   ├── robots.ts
+    │   └── sitemap.ts
+    ├── lib/
+    │   └── site.ts            # Site name, URL, meta description
     └── components/
         ├── Header.tsx         # One file per page section…
         ├── Hero.tsx

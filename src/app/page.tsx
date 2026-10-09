@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <div className="relative">
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <WhatWeDo />
         <Capabilities />
