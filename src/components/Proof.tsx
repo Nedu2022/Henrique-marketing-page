@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import Container from './ui/Container'
 import ButtonLink from './ui/ButtonLink'
 import { expertAvatars, type Avatar } from './Hero'
@@ -53,12 +55,17 @@ export default function Proof({
   const testimonial = testimonialsList[activeTestimonial]
 
   return (
-    <section className="py-12">
+    <section id="proof" aria-labelledby="proof-heading" className="scroll-mt-24 py-12">
       <Container>
         {/* Grey card with the stats. The white testimonial panel below overlaps its bottom with rounded corners. */}
         <div className="overflow-hidden rounded-t-[40px] bg-mist lg:rounded-t-[50px]">
           <div className="px-6 pt-14 pb-16 sm:px-12 lg:px-[72px] lg:pt-24 lg:pb-24">
-            <h2 className="font-display text-2xl font-bold tracking-[-0.02em] text-ink sm:text-[30px]">{title}</h2>
+            <h2
+              id="proof-heading"
+              className="font-display text-2xl font-bold tracking-[-0.02em] text-ink sm:text-[30px]"
+            >
+              {title}
+            </h2>
 
             <div className="mt-10 grid items-center gap-10 sm:grid-cols-3 lg:grid-cols-[1fr_1fr_1fr_1.45fr] lg:gap-6">
               {items.map((stat) => (
@@ -79,7 +86,9 @@ export default function Proof({
               <div className="flex flex-col items-center justify-center rounded-[40px] bg-lavender px-6 py-14 text-center sm:col-span-3 lg:col-span-1 lg:min-h-[250px] lg:rounded-[48px]">
                 <p className="font-display text-4xl font-bold tracking-[-0.03em] text-ink sm:text-[40px]">{highlightValue}</p>
                 <p className="mt-1 font-normal text-ink">{highlightLabel}</p>
-                <ButtonLink className="mt-7">Contact us</ButtonLink>
+                <ButtonLink href="#contact" className="mt-7">
+                  Contact us
+                </ButtonLink>
               </div>
             </div>
           </div>
@@ -123,13 +132,15 @@ export default function Proof({
 
                 <SlashDivider className="hidden h-14 w-7 text-ink/15 sm:block" />
 
-                <a href="#" className="group flex items-center gap-5 text-ink">
+                <Link href="#proof" className="group flex items-center gap-5 text-ink">
                   <div className="flex -space-x-4">
                     {reviewers.map((avatar) => (
-                      <img
+                      <Image
                         key={avatar.src}
                         src={avatar.src}
                         alt={avatar.alt}
+                        width={44}
+                        height={44}
                         className="size-11 rounded-full object-cover ring-2 ring-white"
                       />
                     ))}
@@ -138,7 +149,7 @@ export default function Proof({
                     View all reviews
                     <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

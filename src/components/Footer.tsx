@@ -1,27 +1,28 @@
+import Link from 'next/link'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import Logo from './ui/Logo'
 import type { NavLink } from './Header'
 
 export const solutionLinks: NavLink[] = [
-  { label: 'Paid search marketing', href: '#' },
-  { label: 'Email marketing', href: '#' },
-  { label: 'Social Media Marketing', href: '#' },
-  { label: 'Influencer marketing', href: '#' },
-  { label: 'Search engine optimization', href: '#' },
-  { label: 'Conversion rate optimization', href: '#' },
-  { label: 'Google shopping', href: '#' },
-  { label: 'Amazon shopping', href: '#' },
+  { label: 'Paid search marketing', href: '#capabilities' },
+  { label: 'Email marketing', href: '#capabilities' },
+  { label: 'Social Media Marketing', href: '#capabilities' },
+  { label: 'Influencer marketing', href: '#capabilities' },
+  { label: 'Search engine optimization', href: '#capabilities' },
+  { label: 'Conversion rate optimization', href: '#capabilities' },
+  { label: 'Google shopping', href: '#capabilities' },
+  { label: 'Amazon shopping', href: '#capabilities' },
 ]
 
 export const companyLinks: NavLink[] = [
-  { label: 'About', href: '#' },
-  { label: 'Blog', href: '#' },
-  { label: 'Careers', href: '#' },
-  { label: 'Team', href: '#' },
-  { label: 'Success Stories', href: '#' },
-  { label: 'Awards', href: '#' },
-  { label: 'Contact', href: '#' },
+  { label: 'About', href: '#about' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'Careers', href: '#contact' },
+  { label: 'Team', href: '#why-us' },
+  { label: 'Success Stories', href: '#work' },
+  { label: 'Awards', href: '#proof' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 type FooterProps = {
@@ -45,9 +46,9 @@ export default function Footer({
           <ul className="mt-8 grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-7">
             {solutions.map((link) => (
               <li key={link.label}>
-                <a href={link.href} className="font-normal text-ink transition-colors hover:text-brand">
+                <Link href={link.href} className="font-normal text-ink transition-colors hover:text-brand">
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -56,16 +57,18 @@ export default function Footer({
             <ul className="flex flex-wrap justify-center gap-x-10 gap-y-4 lg:justify-between lg:px-16">
               {company.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="font-normal text-ink transition-colors hover:text-brand">
+                  <Link href={link.href} className="font-normal text-ink transition-colors hover:text-brand">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
           <div className="mt-8 flex flex-col items-center justify-between gap-4 text-sm sm:flex-row">
-            <Logo size="sm" />
+            <Link href="/" aria-label="Henrique home">
+              <Logo size="sm" />
+            </Link>
             <p>{copyright}</p>
           </div>
         </div>

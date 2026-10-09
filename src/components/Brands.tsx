@@ -23,9 +23,14 @@ type BrandsProps = {
 
 export default function Brands({ title = 'The best brands choose Henrique', items = brands }: BrandsProps) {
   return (
-    <section className="pt-16 pb-8 lg:pt-24">
+    <section aria-labelledby="brands-heading" className="pt-16 pb-8 lg:pt-24">
       <Container>
-        <h2 className="text-center font-display text-xl font-bold tracking-[-0.02em] text-ink sm:text-[22px]">{title}</h2>
+        <h2
+          id="brands-heading"
+          className="text-center font-display text-xl font-bold tracking-[-0.02em] text-ink sm:text-[22px]"
+        >
+          {title}
+        </h2>
 
         <ul className="mt-12 grid grid-cols-2 items-center gap-x-8 gap-y-10 sm:grid-cols-3 lg:flex lg:justify-between">
           {items.map((brand) => (

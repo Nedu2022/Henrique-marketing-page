@@ -24,12 +24,12 @@ The marketing site for **Henrique**, a data-driven digital marketing agency. It 
 
 | Tool | Version | Why |
 | --- | --- | --- |
+| [Next.js](https://nextjs.org) | 15 | App Router |
 | [React](https://react.dev) | 19 | Component-based UI |
-| [TypeScript](https://www.typescriptlang.org) | 7 | Typed props and content data, catching mistakes before the browser does |
-| [Vite](https://vite.dev) | 8 | Dev server with instant hot reload, and the production bundler |
+| [TypeScript](https://www.typescriptlang.org) | 5 | Typed props and content data, catching mistakes before the browser does |
 | [Tailwind CSS](https://tailwindcss.com) | 4 | Utility classes for styling, with design tokens defined once in CSS |
 
-Fonts are loaded from Google Fonts: **Syne** for headings and **Kanit** for body text.
+Fonts (**Syne**, **Kanit**) are loaded via `next/font`.
 
 ---
 
@@ -39,16 +39,15 @@ Fonts are loaded from Google Fonts: **Syne** for headings and **Kanit** for body
 
 ```bash
 npm install        # install dependencies
-npm run dev        # start the dev server at http://localhost:5173
+npm run dev        # start the dev server at http://localhost:3000
 ```
 
 | Command | What it does |
 | --- | --- |
-| `npm run dev` | Starts the local dev server with hot reload |
-| `npm run build` | Builds the production site into `dist/` |
-| `npm run preview` | Serves the production build locally, for a final check |
-| `npx tsc` | Type-checks the whole project without building |
-| `npm run lint` | Runs ESLint (see [open TODOs](#roadmap-and-open-todos): not yet set up for `.tsx`) |
+| `npm run dev` | Starts the local Next.js dev server with hot reload |
+| `npm run build` | Builds the production site into `.next/` |
+| `npm run start` | Serves the production build locally |
+| `npm run lint` | Runs ESLint with the Next.js config |
 
 ---
 
@@ -56,38 +55,28 @@ npm run dev        # start the dev server at http://localhost:5173
 
 ```text
 henique/
-├── index.html                 # HTML shell: page title, font links, mounts the app
-├── vite.config.js             # Vite + React + Tailwind plugins
+├── next.config.ts             # Next.js config
+├── postcss.config.mjs         # Tailwind PostCSS plugin
 ├── tsconfig.json              # TypeScript settings
 ├── public/
 │   └── images/                # All site images, grouped by purpose (see below)
 └── src/
-    ├── main.tsx               # Entry point: mounts <App /> into #root
-    ├── App.tsx                # Renders the Home page
-    ├── index.css              # Tailwind import + design tokens (@theme)
-    ├── pages/
-    │   └── Home.tsx           # Composes all sections in page order
+    ├── app/
+    │   ├── layout.tsx         # Root layout and fonts
+    │   ├── page.tsx           # Home page composition
+    │   └── globals.css        # Tailwind import + design tokens (@theme)
     └── components/
         ├── Header.tsx         # One file per page section…
         ├── Hero.tsx
         ├── …
         └── ui/                # Small reusable building blocks
-            ├── ButtonLink.tsx
-            ├── Container.tsx
-            ├── Eyebrow.tsx
-            ├── Logo.tsx
-            ├── MediaImage.tsx
-            ├── SectionHeading.tsx
-            ├── TextLink.tsx
-            ├── WaveDivider.tsx
-            └── icons.tsx
 ```
 
 ---
 
 ## Page sections
 
-The home page is assembled in [`src/pages/Home.tsx`](src/pages/Home.tsx) from these components, top to bottom:
+The home page is assembled in [`src/app/page.tsx`](src/app/page.tsx) from these components, top to bottom:
 
 | # | Component | What it shows | Editable data |
 | --- | --- | --- | --- |

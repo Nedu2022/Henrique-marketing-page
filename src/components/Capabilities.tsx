@@ -1,4 +1,5 @@
 import type { ComponentType, SVGProps } from 'react'
+import Image from 'next/image'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import SectionHeading from './ui/SectionHeading'
@@ -57,22 +58,30 @@ export default function Capabilities({
 }: CapabilitiesProps) {
   return (
     // The lavender background starts halfway down the photo, so the photo looks like it sits across two colours.
-    <section className="relative pb-20 lg:pb-28">
+    <section id="capabilities" aria-labelledby="capabilities-heading" className="relative scroll-mt-24 pb-20 lg:pb-28">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-[clamp(120px,15vw,260px)] bottom-0 bg-linear-to-b from-lavender-soft via-lavender-soft to-white"
       />
 
       <Container className="relative">
-        <img
-          src={image}
-          alt="Our team collaborating around a shared desk"
-          className="aspect-[16/10] w-full rounded-[32px] object-cover sm:aspect-[1280/520] lg:rounded-[50px]"
-        />
+        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[32px] sm:aspect-[1280/520] lg:rounded-[50px]">
+          <Image
+            src={image}
+            alt="Our team collaborating around a shared desk"
+            fill
+            sizes="(max-width: 1328px) 100vw, 1280px"
+            className="object-cover"
+          />
+        </div>
 
         <Eyebrow className="mt-14 lg:mt-16">{eyebrow}</Eyebrow>
-        <SectionHeading className="mt-5 max-w-[720px]">{title}</SectionHeading>
-        <ButtonLink className="mt-10">{ctaLabel}</ButtonLink>
+        <SectionHeading id="capabilities-heading" className="mt-5 max-w-[720px]">
+          {title}
+        </SectionHeading>
+        <ButtonLink href="#capabilities" className="mt-10">
+          {ctaLabel}
+        </ButtonLink>
 
         <ul className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {items.map(({ title: itemTitle, text, href, icon: Icon }) => (

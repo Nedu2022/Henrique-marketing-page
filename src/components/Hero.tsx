@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import Container from './ui/Container'
 import ButtonLink from './ui/ButtonLink'
 import { ArrowRightIcon, SlashDivider, StarIcon } from './ui/icons'
@@ -8,9 +10,9 @@ export type Avatar = {
 }
 
 export const expertAvatars: Avatar[] = [
-  { src: '/images/avatars/man-black-hat.jpg', alt: 'Marketing expert' },
-  { src: '/images/avatars/woman-blue-blazer.jpg', alt: 'Marketing expert' },
-  { src: '/images/avatars/man-white-shirt.jpg', alt: 'Marketing expert' },
+  { src: '/images/avatars/man-black-hat.jpg', alt: 'Marketing expert wearing a black hat' },
+  { src: '/images/avatars/woman-blue-blazer.jpg', alt: 'Marketing expert in a blue blazer' },
+  { src: '/images/avatars/man-white-shirt.jpg', alt: 'Marketing expert in a white shirt' },
 ]
 
 type HeroProps = {
@@ -53,11 +55,14 @@ export default function Hero({
   avatars = expertAvatars,
 }: HeroProps) {
   return (
-    <section className="bg-linear-to-b from-lavender via-lavender-soft to-white pt-32 pb-12 sm:pt-40 lg:pt-44">
+    <section aria-labelledby="hero-heading" className="bg-linear-to-b from-lavender via-lavender-soft to-white pt-32 pb-12 sm:pt-40 lg:pt-44">
       <Container>
         {/* Heading */}
         <div className="mx-auto max-w-5xl text-center">
-          <h1 className="font-display text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-ink sm:text-6xl xl:text-[72px]">
+          <h1
+            id="hero-heading"
+            className="font-display text-[40px] leading-[1.05] font-bold tracking-[-0.03em] text-ink sm:text-6xl xl:text-[72px]"
+          >
             {title}
           </h1>
           <p className="mx-auto mt-6 max-w-4xl text-lg font-normal text-body sm:text-xl">{subtitle}</p>
@@ -85,10 +90,13 @@ export default function Hero({
 
           {/* Rings photo, masked into the custom shape on desktop */}
           <div className="relative aspect-square overflow-hidden rounded-[40px] xl:absolute xl:inset-y-0 xl:right-0 xl:aspect-auto xl:w-[57.27%] xl:rounded-none xl:[mask-image:url(/images/shapes/intro-shape-2.svg)] xl:[mask-repeat:no-repeat] xl:[mask-size:100%_100%]">
-            <img
+            <Image
               src="/images/photos/abstract-purple-rings.jpg"
               alt="Abstract purple rings with a small sphere"
-              className="size-full object-cover"
+              fill
+              priority
+              sizes="(max-width: 1280px) 100vw, 730px"
+              className="object-cover"
             />
           </div>
 
@@ -110,19 +118,23 @@ export default function Hero({
             <p className="max-w-[10ch] text-xl leading-snug font-normal text-ink xl:text-[clamp(1rem,1.35vw,1.375rem)]">
               {ctaText}
             </p>
-            <ButtonLink className="xl:px-5">{ctaLabel}</ButtonLink>
+            <ButtonLink href="#contact" className="xl:px-5">
+              {ctaLabel}
+            </ButtonLink>
           </div>
         </div>
 
         {/* Stats bar */}
         <div className="mt-14 flex flex-col items-center gap-8 text-ink md:flex-row md:justify-between md:gap-4">
-          <a href="#" className="group flex items-center gap-5">
+          <Link href="#contact" className="group flex items-center gap-5">
             <div className="flex -space-x-4">
               {avatars.map((avatar) => (
-                <img
+                <Image
                   key={avatar.src}
                   src={avatar.src}
                   alt={avatar.alt}
+                  width={40}
+                  height={40}
                   className="size-10 rounded-full object-cover ring-2 ring-white"
                 />
               ))}
@@ -131,7 +143,7 @@ export default function Hero({
               Connect our experts
               <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
             </span>
-          </a>
+          </Link>
 
           <SlashDivider className="hidden h-14 w-7 text-ink/15 md:block" />
 

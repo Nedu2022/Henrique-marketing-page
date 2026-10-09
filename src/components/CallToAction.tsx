@@ -42,7 +42,7 @@ export default function CallToAction({
   roasNote = 'across our 100+ Global Clients on SEO, PPC & Social',
 }: CallToActionProps) {
   return (
-    <section className="pt-12">
+    <section id="contact" className="scroll-mt-24 pt-12">
       <Container>
         {/* Extra bottom padding: the footer slides up 50px over this box (see Footer's -mt). */}
         <div className="rounded-t-[40px] bg-lavender px-6 pt-14 pb-[calc(4rem+50px)] sm:px-12 lg:rounded-t-[50px] lg:px-[72px] lg:pt-24">
@@ -54,7 +54,9 @@ export default function CallToAction({
               <a href={`tel:${phone}`} className="font-display text-lg font-bold text-ink">
                 {phone}
               </a>
-              <ButtonLink className="mt-4">{ctaLabel}</ButtonLink>
+              <ButtonLink href="#contact" className="mt-4">
+                {ctaLabel}
+              </ButtonLink>
             </div>
           </div>
 

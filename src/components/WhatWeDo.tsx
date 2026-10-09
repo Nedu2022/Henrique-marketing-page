@@ -38,18 +38,22 @@ export default function WhatWeDo({
   items = benefits,
 }: WhatWeDoProps) {
   return (
-    <section className="pt-8 pb-20 lg:pb-24">
+    <section id="about" aria-labelledby="what-we-do-heading" className="scroll-mt-24 pt-8 pb-20 lg:pb-24">
       <Container>
         <WaveDivider variant="offset" />
 
         <div className="mt-16 grid gap-8 lg:mt-20 lg:grid-cols-2 lg:gap-16">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <SectionHeading className="mt-5 max-w-lg">{title}</SectionHeading>
+            <SectionHeading id="what-we-do-heading" className="mt-5 max-w-lg">
+              {title}
+            </SectionHeading>
           </div>
           <div className="lg:max-w-[510px] lg:justify-self-end lg:pt-10">
             <p className="leading-[1.8]">{intro}</p>
-            <TextLink className="mt-8">{linkLabel}</TextLink>
+            <TextLink href="#about" className="mt-8">
+              {linkLabel}
+            </TextLink>
           </div>
         </div>
 

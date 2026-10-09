@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import SectionHeading from './ui/SectionHeading'
@@ -62,12 +64,16 @@ export default function SuccessStories({
   const pageCount = Math.ceil(items.length / 2)
 
   return (
-    <section className="py-12 lg:py-16">
+    <section id="work" aria-labelledby="work-heading" className="scroll-mt-24 py-12 lg:py-16">
       <Container className="grid gap-10 lg:grid-cols-[37%_1fr] lg:gap-0">
         <div className="flex flex-col">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <SectionHeading className="mt-8 max-w-[460px] lg:mt-16">{title}</SectionHeading>
-          <TextLink className="mt-8 self-start lg:mt-auto lg:mb-[30px]">View all</TextLink>
+          <SectionHeading id="work-heading" className="mt-8 max-w-[460px] lg:mt-16">
+            {title}
+          </SectionHeading>
+          <TextLink href="#work" className="mt-8 self-start lg:mt-auto lg:mb-[30px]">
+            View all
+          </TextLink>
         </div>
 
         <div className="min-w-0">
@@ -78,14 +84,16 @@ export default function SuccessStories({
           <ul className="flex snap-x snap-mandatory gap-[30px] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {items.map((story) => (
               <li key={story.brand} className="w-[85%] shrink-0 snap-start sm:w-[calc(50%-15px)]">
-                <a
-                  href={story.href}
+                <Link
+                  href={story.href === '#' ? '#work' : story.href}
                   className="group relative flex aspect-square flex-col justify-between overflow-hidden rounded-[40px] p-7 text-white sm:p-10"
                 >
-                  <img
+                  <Image
                     src={story.image}
-                    alt=""
-                    className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    alt={`${story.brand} case study — ${story.label}`}
+                    fill
+                    sizes="(max-width: 640px) 85vw, 40vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div aria-hidden="true" className="absolute inset-0 bg-black/35" />
 
@@ -102,7 +110,7 @@ export default function SuccessStories({
                       ))}
                     </ul>
                   </div>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

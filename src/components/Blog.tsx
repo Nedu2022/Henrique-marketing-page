@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Container from './ui/Container'
 import Eyebrow from './ui/Eyebrow'
 import SectionHeading from './ui/SectionHeading'
@@ -45,18 +46,20 @@ export default function Blog({
   items = posts,
 }: BlogProps) {
   return (
-    <section className="py-20 lg:py-28">
+    <section id="blog" aria-labelledby="blog-heading" className="scroll-mt-24 py-20 lg:py-28">
       <Container>
         <div className="text-center">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <SectionHeading className="mx-auto mt-6 max-w-[640px]">{title}</SectionHeading>
+          <SectionHeading id="blog-heading" className="mx-auto mt-6 max-w-[640px]">
+            {title}
+          </SectionHeading>
         </div>
 
         <ul className="mt-14 grid gap-[30px] md:grid-cols-3">
           {items.map((post) => (
             <li key={post.title}>
-              <a
-                href={post.href}
+              <Link
+                href={post.href === '#' ? '#blog' : post.href}
                 className="group block h-full overflow-hidden rounded-[40px] border border-line transition-shadow hover:shadow-xl hover:shadow-brand/10"
               >
                 <MediaImage
@@ -65,12 +68,14 @@ export default function Blog({
                   className="aspect-[398/275] w-full transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <div className="p-8 pb-12 sm:px-9">
-                  <p>{post.date}</p>
+                  <p>
+                    <time dateTime="2023-05">{post.date}</time>
+                  </p>
                   <h3 className="mt-3 font-display text-xl leading-[1.3] font-bold tracking-[-0.02em] text-ink">
                     {post.title}
                   </h3>
                 </div>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

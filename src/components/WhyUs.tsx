@@ -77,7 +77,7 @@ export default function WhyUs({
   const isLast = activeIndex === tabs.length - 1
 
   return (
-    <section className="py-20 lg:py-28">
+    <section id="why-us" aria-labelledby="why-us-heading" className="scroll-mt-24 py-20 lg:py-28">
       <Container className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
         {/* Tabs + panel */}
         <div className="max-w-[603px]">
@@ -117,9 +117,11 @@ export default function WhyUs({
 
         {/* Copy */}
         <div className="lg:max-w-[580px] lg:justify-self-end">
-          <SectionHeading>{title}</SectionHeading>
+          <SectionHeading id="why-us-heading">{title}</SectionHeading>
           <p className="mt-10 leading-[1.8]">{text}</p>
-          <ButtonLink className="mt-10">{ctaLabel}</ButtonLink>
+          <ButtonLink href="#contact" className="mt-10">
+            {ctaLabel}
+          </ButtonLink>
         </div>
       </Container>
     </section>

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Container from './ui/Container'
 import Logo from './ui/Logo'
 import ButtonLink from './ui/ButtonLink'
@@ -9,11 +10,11 @@ export type NavLink = {
 }
 
 export const navLinks: NavLink[] = [
-  { label: 'H.', href: '#' },
-  { label: 'Marketing solutions', href: '#' },
-  { label: 'Who we are', href: '#' },
-  { label: 'Work', href: '#' },
-  { label: 'Contact', href: '#' },
+  { label: 'H.', href: '/' },
+  { label: 'Marketing solutions', href: '#capabilities' },
+  { label: 'Who we are', href: '#about' },
+  { label: 'Work', href: '#work' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 type HeaderProps = {
@@ -22,28 +23,28 @@ type HeaderProps = {
   ctaHref?: string
 }
 
-export default function Header({ links = navLinks, ctaLabel = 'Free audit', ctaHref = '#' }: HeaderProps) {
+export default function Header({ links = navLinks, ctaLabel = 'Free audit', ctaHref = '#contact' }: HeaderProps) {
   // Absolutely positioned so the hero's gradient shows through behind it.
   // TODO: sticky header that reappears (with a white background) when scrolling up, as in the later screenshots.
   return (
     <header className="absolute inset-x-0 top-0 z-20">
       {/* 3 columns on desktop (1fr | auto | 1fr) keeps the nav truly centred even though logo and button differ in width. */}
       <Container className="flex h-20 items-center justify-between gap-6 lg:grid lg:grid-cols-[1fr_auto_1fr]">
-        <a href="#" className="self-start" aria-label="Henrique home">
+        <Link href="/" className="self-start" aria-label="Henrique home">
           <Logo />
-        </a>
+        </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-7">
             {links.map((link) => (
               <li key={link.label}>
                 {/* TODO: "Marketing solutions" probably opens a dropdown/mega-menu. */}
-                <a
+                <Link
                   href={link.href}
                   className="font-display text-[13px] font-medium tracking-wide text-ink uppercase transition-colors hover:text-brand"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
