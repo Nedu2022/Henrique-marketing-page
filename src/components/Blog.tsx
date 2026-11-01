@@ -12,25 +12,27 @@ export type Post = {
   imageAlt: string
 }
 
-// TODO: add the blog photos to public/images/blog/ and set `image` on each post.
 export const posts: Post[] = [
   {
     date: 'May 2023',
     title: 'The evolution of live-stream content and short-form video: a look at the TikTok revolution',
     href: '#',
-    imageAlt: 'A glowing brain floating on a purple background',
+    image: '/images/blog/streaming-setup.jpg',
+    imageAlt: 'A streaming desk with two monitors, a camera on a tripod and a gaming chair',
   },
   {
     date: 'May 2023',
     title: 'The Metaverse boom: brands unite and Apple takes a rain check',
     href: '#',
+    image: '/images/blog/vr-headset.jpg',
     imageAlt: 'A man wearing a VR headset holding controllers',
   },
   {
     date: 'May 2023',
     title: 'Verify your site is protecting your business',
     href: '#',
-    imageAlt: 'A smiling woman holding a megaphone',
+    image: '/images/blog/padlock-keyboard.jpg',
+    imageAlt: 'A padlock resting on a backlit laptop keyboard',
   },
 ]
 

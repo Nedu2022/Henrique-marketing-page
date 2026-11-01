@@ -1,3 +1,6 @@
+'use client'
+
+import { useId, useRef, useState, type KeyboardEvent } from 'react'
 import Container from './ui/Container'
 import SectionHeading from './ui/SectionHeading'
 import ButtonLink from './ui/ButtonLink'
@@ -35,8 +38,7 @@ export const whyUsTabs: WhyUsTab[] = [
     label: 'Team of experts',
     title: 'Friendly team of experts',
     text: 'Our experts and professionals are never more than an email or a phone call away. Or, if you prefer to talk face to face, drop by our office to discuss your plans and goals over a cup of coffee. We are here for you.',
-    // TODO: add the team-meeting photo as public/images/photos/team-meeting.jpg and set src.
-    media: { kind: 'image', alt: 'Our team reviewing charts around a table' },
+    media: { kind: 'image', src: '/images/photos/team-meeting.jpg', alt: 'Our team reviewing charts around a table' },
   },
   {
     label: 'Results',
@@ -58,8 +60,7 @@ export const whyUsTabs: WhyUsTab[] = [
 
 type WhyUsProps = {
   tabs?: WhyUsTab[]
-  // TODO: replace this prop with useState when wiring up the tabs (clicking a tab sets the index).
-  activeIndex?: number
+  defaultIndex?: number
   title?: string
   text?: string
   ctaLabel?: string
@@ -67,14 +68,32 @@ type WhyUsProps = {
 
 export default function WhyUs({
   tabs = whyUsTabs,
-  activeIndex = 0,
+  defaultIndex = 0,
   title = 'Why Henrique is your top-choice',
   text = 'We are a five-star rated holistic full-service digital marketing agencies, serving thousands of clients. Our digital agency covers all aspects of internet marketing: SEO, social media, and PPC management, all the way to email marketing, website design, and web development.',
   ctaLabel = 'Get proposal',
 }: WhyUsProps) {
+  const [activeIndex, setActiveIndex] = useState(defaultIndex)
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const baseId = useId()
   const active = tabs[activeIndex]
   const isFirst = activeIndex === 0
   const isLast = activeIndex === tabs.length - 1
+
+  // Left/Right/Home/End move between tabs, per the WAI-ARIA tabs pattern.
+  function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    const last = tabs.length - 1
+    const next = {
+      ArrowRight: activeIndex === last ? 0 : activeIndex + 1,
+      ArrowLeft: activeIndex === 0 ? last : activeIndex - 1,
+      Home: 0,
+      End: last,
+    }[event.key]
+    if (next === undefined) return
+    event.preventDefault()
+    setActiveIndex(next)
+    tabRefs.current[next]?.focus()
+  }
 
   return (
     <section id="why-us" aria-labelledby="why-us-heading" className="scroll-mt-24 py-20 lg:py-28">
@@ -83,14 +102,21 @@ export default function WhyUs({
         <div className="max-w-[603px]">
           <div role="tablist" aria-label="Why choose us" className="grid grid-cols-3">
             {tabs.map((tab, i) => (
-              // TODO: onClick → set active tab. Also add arrow-key navigation between tabs.
               <button
                 key={tab.label}
+                ref={(el) => {
+                  tabRefs.current[i] = el
+                }}
+                id={`${baseId}-tab-${i}`}
                 type="button"
                 role="tab"
                 aria-selected={i === activeIndex}
-                className={`rounded-t-[32px] px-2 py-5 font-display text-xs font-bold tracking-tight text-ink uppercase sm:text-base lg:py-6 ${
-                  i === activeIndex ? 'bg-lavender' : ''
+                aria-controls={`${baseId}-panel`}
+                tabIndex={i === activeIndex ? 0 : -1}
+                onClick={() => setActiveIndex(i)}
+                onKeyDown={handleKeyDown}
+                className={`cursor-pointer rounded-t-[32px] px-2 py-5 font-display text-xs font-bold tracking-tight text-ink uppercase transition-colors sm:text-base lg:py-6 ${
+                  i === activeIndex ? 'bg-lavender' : 'hover:text-brand'
                 }`}
               >
                 {tab.label}
@@ -100,7 +126,9 @@ export default function WhyUs({
 
           {/* The corner under the active tab is square so tab and panel read as one shape. */}
           <div
+            id={`${baseId}-panel`}
             role="tabpanel"
+            aria-labelledby={`${baseId}-tab-${activeIndex}`}
             className={`rounded-[40px] bg-lavender p-6 pb-10 sm:p-10 sm:pb-16 ${isFirst ? 'rounded-tl-none' : ''} ${
               isLast ? 'rounded-tr-none' : ''
             }`}
